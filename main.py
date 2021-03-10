@@ -22,14 +22,17 @@ def read_recipe(filepath):
 def get_shop_list_by_dishes(dishes, person_count):
     shop_list = {}
     for dish in dishes:
-        print(cook_book[dish])
         for ingr in cook_book[dish]:
-            if shop_list[ingr['ingredient_name']]:
-                shop_list[ingr['ingredient_name']]['quantity'] = shop_list[ingr['ingredient_name']]['quantity'] + ingr['quantity']
-            shop_list.update({ingr['ingredient_name'] : {'quantity': ingr['quantity'] * person_count, 'measure': ingr['measure']}})
+            if shop_list.get(ingr['ingredient_name']):
+                sum = int(shop_list[ingr['ingredient_name']]['quantity']) + int(ingr['quantity'])
+                shop_list[ingr['ingredient_name']]['quantity'] = sum
+            else:
+                shop_list.update({ingr['ingredient_name'] : {'quantity': ingr['quantity'], 'measure': ingr['measure']}})
+    for item in shop_list:
+        shop_list[item]['quantity'] = int(shop_list[item]['quantity']) * int(person_count)
     pprint(shop_list)
 
 
 if __name__ == '__main__':
     read_recipe('recipes.txt')
-    get_shop_list_by_dishes(['Омлет', 'Фахитос'], 2)
+    get_shop_list_by_dishes(['Утка по-пекински', 'Фахитос', 'Омлет'], 8)
