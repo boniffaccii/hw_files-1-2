@@ -2,6 +2,7 @@ from pprint import pprint
 
 cook_book = {}
 
+
 def read_recipe(filepath):
     meal = []
     with open(filepath, 'r') as f:
@@ -18,6 +19,7 @@ def read_recipe(filepath):
             elif line == '':
                 meal = []
     pprint(cook_book)
+
 
 def get_shop_list_by_dishes(dishes, person_count):
     shop_list = {}
